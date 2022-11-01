@@ -34,7 +34,7 @@ public class TestController {
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
-        System.out.println("view page 호출!!!@@@@@@@@@@@@@@@@@@sss");
+        System.out.println("test 호출!!!@@@@@@@@@@@@@@@@@@sss");
         return new ResponseEntity<>("responseDTO", HttpStatus.OK);
     }
 }

@@ -1,6 +1,6 @@
 package com.insung.core.findbean;
 
-import com.insung.core.config.MyBatisConfig;
+import com.insung.core.common.config.MyBatisConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

@@ -1,4 +1,4 @@
-package com.insung.core.config;
+package com.insung.core.common.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

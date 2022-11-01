@@ -1,5 +1,6 @@
-package com.insung.core.config;
+package com.insung.core.common.config;
 
+import com.insung.core.common.security.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,13 +16,13 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/api/view").hasAnyRole("ADMIN")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/con/main").permitAll()
+                .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
-//                .successForwardUrl("/t/view")
                 .defaultSuccessUrl("/api/test",true)
+                .successHandler(new LoginSuccessHandler())
             .and()
                 .csrf().disable();
 
