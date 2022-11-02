@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>view</h1>
+    <h1>main page</h1>
+    <div id="memberJoin" onclick="memberJoin()">회원가입</div>
+    <script>
+        let memberJoin = function(){
+            console.log("회원가입 테스트")
+            let form = document.createElement("form");
+            form.setAttribute("charset", "UTF-8");
+            form.setAttribute("method", "GET");  //Post 방식
+            form.setAttribute("action", "/user/join"); //요청 보낼 주소
+
+            $('body').append(form);
+            form.submit();
+        }
+    </script>
 </body>
 </html>

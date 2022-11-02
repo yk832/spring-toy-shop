@@ -22,7 +22,6 @@ import java.io.IOException;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private RequestCache requestCache = new HttpSessionRequestCache();
-
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
@@ -33,22 +32,21 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void successRedirectUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         clearSession(request);
         SavedRequest savedRequest = requestCache.getRequest(request, response);
-        String defaultTargetURI = "/con/main";
 
-        log.info("로그인 이전 요청한 URL {} :" + savedRequest);
+        log.info("로그인 이전 요청한 URL : {}" , savedRequest);
         log.info("인증 유저의 권한 :" + authentication.getAuthorities());
 
         if (savedRequest != null) {
             String targetURI = savedRequest.getRedirectUrl();
             redirectStrategy.sendRedirect(request,response,targetURI);
         } else {
-            redirectStrategy.sendRedirect(request,response,defaultTargetURI);
+            redirectStrategy.sendRedirect(request,response,"/common/main");
         }
 
     }
 
     // 로그인 실패 후 성공 시 남아있는 에러 세션 제거
-    protected void clearSession(HttpServletRequest request) {
+    private void clearSession(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);

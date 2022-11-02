@@ -1,4 +1,4 @@
-package com.insung.core.controller;
+package com.insung.core.controller.restcontroller;
 
 import com.insung.core.dto.ResponseDTO;
 import com.insung.core.service.UserServiceImpl;
