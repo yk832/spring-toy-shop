@@ -1,5 +1,6 @@
 package com.insung.core.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,27 +14,27 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserDetailService implements UserDetailsService {
-
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(" userName ===============> : "+ username);
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        log.info(" userName ===============> : "+ username);
+
         String encode = bCryptPasswordEncoder.encode("1234");
         encode = "{bcrypt}" + encode;
-        System.out.println("encode ============> " + encode);
-
+        log.info("encode ============> " + encode);
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         if (("admin").equals(username)) {
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else {
-            authorities.add(new SimpleGrantedAuthority("USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
-        String id = "admin";
+        log.info("authorities {} : ",authorities);
         return new User(username,encode,authorities);
     }
 }
