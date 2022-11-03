@@ -1,5 +1,6 @@
-package com.insung.core.dao;
+package com.insung.core.mapper;
 
+import com.insung.core.dto.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +9,6 @@ import java.util.HashMap;
 
 @Mapper
 @Repository
-public interface UserDao {
-    ArrayList<HashMap<String, Object>> findAll();
+public interface UserMapper {
+    UserDto join();
 }

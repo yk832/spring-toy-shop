@@ -17,7 +17,7 @@ public class SpringSecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/admin/index").hasRole("ADMIN")
                 .antMatchers("/acs/**").hasAnyRole("ADMIN","USER")
-                .antMatchers("/common/**","/user/**").permitAll()
+                .antMatchers("/common/**","/user/**","/api/**").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
