@@ -33,7 +33,8 @@ public class UserController {
     @PostMapping("/join")
     public ModelAndView postJoin(UserDto user, HttpServletRequest request, HttpServletResponse response) {
         log.info("user : {} " + user);
-        log.info("회원가입 완료 요청");
+        UserDto test = userService.join(user);
+        log.info("회원가입 완료 요청 : " + test);
         return null;
     }
 

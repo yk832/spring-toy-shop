@@ -9,7 +9,7 @@ public class UserDto {
     // 사용자 아이디
     private String user_id;
     // 사용자 비밀번호
-    private String user_pwd;
+    private String pwd;
     // 비밀번호 변경 일시
     private String pwd_chng_date;
     // 비밀번호 오류 횟수

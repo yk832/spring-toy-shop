@@ -11,11 +11,12 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(value ="com.insung.core", sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(value ="com.insung.core", annotationClass = Repository.class)
 public class MyBatisConfig {
 
     @Value("${spring.datasource.mapper-locations}")

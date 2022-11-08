@@ -6,5 +6,5 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface UserService {
-    UserDto join();
+    UserDto join(UserDto user);
 }

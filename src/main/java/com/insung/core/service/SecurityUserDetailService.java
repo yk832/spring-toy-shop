@@ -1,7 +1,6 @@
 package com.insung.core.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class UserDetailService implements UserDetailsService {
+public class SecurityUserDetailService implements UserDetailsService {
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override

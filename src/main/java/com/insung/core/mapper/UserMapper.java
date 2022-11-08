@@ -10,5 +10,5 @@ import java.util.HashMap;
 @Mapper
 @Repository
 public interface UserMapper {
-    UserDto join();
+    UserDto join(UserDto userDto);
 }
