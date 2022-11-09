@@ -11,7 +11,7 @@ public class UserDto {
     // 사용자 비밀번호
     private String pwd;
     // 비밀번호 변경 일시
-    private String pwd_chng_date;
+    private String pwd_chng_dttm;
     // 비밀번호 오류 횟수
     private String pwd_err_cnt;
     // 사용자명
@@ -21,7 +21,7 @@ public class UserDto {
     // 이메일주소 도메인
     private String email_addr_dm;
     // 사용가능여부
-    private String user_pose_yn;
+    private String use_posb_yn;
     // 인증만료여부
     private String cert_xpry_yn;
     // 잠김여부

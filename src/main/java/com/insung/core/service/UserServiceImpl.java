@@ -11,7 +11,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserMapper userMapper;
     @Override
-    public UserDto join(UserDto user) {
-        return userMapper.join(user);
+    public void join(UserDto user) {
+         userMapper.join(user);
     }
 }
