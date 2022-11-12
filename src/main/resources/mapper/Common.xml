@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insung.core.common.mapper.CommonMapper">
+
+
+    <select id="getAuthority" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+        SELECT DETL_COMM_CD_NM AS ROLE
+        FROM shop_user A,
+             userauth B,
+             common_code_detail C
+        WHERE A.USER_ID = B.USER_ID
+          AND C.DETL_COMM_CD = B.USER_AUTH_CD
+          AND C.COMM_CD = '142'
+          AND A.USER_ID = #{user_id};
+    </select>
+
+    <insert id="insertAuth" parameterType="hashmap">
+	<![CDATA[
+        INSERT INTO userauth
+        (
+            USER_ID          #사용자_ID
+        , USER_AUTH_CD     #사용자_권한_코드
+        , REG_ID      #등록_자_ID
+        , REG_DATE           #등록_일자
+        , CHNG_ID     #변경_자_ID
+        , CHNG_DATE          #변경_일자
+        ) VALUES (
+                     #{user_id}
+                 , #{user_auth_cd}
+                 , #{reg_pers_id}
+                 ,NOW()
+                 , #{chng_pers_id}
+                 ,NOW()
+                 )
+        ]]>
+	</insert>
+
+</mapper>
+

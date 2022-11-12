@@ -36,6 +36,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info("로그인 이전 요청한 URL : {}" , savedRequest);
         log.info("인증 유저의 권한 :" + authentication.getAuthorities());
 
+        // 이전 요청 처리
         if (savedRequest != null) {
             String targetURI = savedRequest.getRedirectUrl();
             redirectStrategy.sendRedirect(request,response,targetURI);

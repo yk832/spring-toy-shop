@@ -4,7 +4,8 @@ import com.insung.core.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public interface UserService {
-    void join(UserDto user);
+    void join(Map<String,Object> user) throws Exception;
 }

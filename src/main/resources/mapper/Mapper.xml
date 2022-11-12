@@ -6,5 +6,11 @@
             VALUES (#{user_id},#{pwd},#{pwd_chng_dttm},#{pwd_err_cnt},#{user_nm},#{email_addr},#{email_addr_dm},#{use_posb_yn},#{cert_xpry_yn},#{lkd_yn},#{leav_yn},#{reg_id},#{reg_date},#{chng_id},#{chng_date})
     </insert>
 
+    <select id="findUser" resultType="com.insung.core.dto.UserDto">
+        SELECT *
+        FROM shop_user
+        WHERE USER_ID = #{user_id};
+    </select>
+
 </mapper>
 

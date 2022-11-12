@@ -15,9 +15,10 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/admin/index").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/acs/**").hasAnyRole("ADMIN","USER")
-                .antMatchers("/common/**","/user/**","/api/**").permitAll()
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/common/**","/user/**","/api/**").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
