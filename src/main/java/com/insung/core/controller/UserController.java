@@ -42,6 +42,7 @@ public class UserController {
      * @param response
      *
      * 회원가입시 유저권한 세팅을 위해 UserDto 객체 이외 데이터도 받아오기 위해 Map으로 받아온다.
+     * - 유저 권한 설정
      *
      * @return
      */

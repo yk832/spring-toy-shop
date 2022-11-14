@@ -1,4 +1,4 @@
-package com.insung.core.service;
+package com.insung.core.common.security;
 
 import com.insung.core.common.mapper.CommonMapper;
 import com.insung.core.common.security.SignedUser;
