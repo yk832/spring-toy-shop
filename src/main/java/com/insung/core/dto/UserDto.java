@@ -36,4 +36,17 @@ public class UserDto {
     private String chng_id;
     // 변경 일자
     private String chng_date;
+
+    private String user_auth_cd;
+
+    public UserDto() {
+    }
+
+    public UserDto(UserSaveForm userSaveForm) {
+        this.user_id = userSaveForm.getUser_id();
+        this.pwd = userSaveForm.getPwd();
+        this.user_nm = userSaveForm.getUser_nm();
+        this.email_addr = userSaveForm.getEmail_addr();
+        this.email_addr_dm = userSaveForm.getEmail_addr_dm();
+    }
 }

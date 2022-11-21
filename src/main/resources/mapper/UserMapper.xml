@@ -3,7 +3,7 @@
 <mapper namespace="com.insung.core.mapper.UserMapper">
     <insert id="join" parameterType="com.insung.core.dto.UserDto">
         INSERT INTO shop_user (USER_ID,PWD,PWD_CHNG_DTTM,PWD_ERR_CNT,USER_NM,EMAIL_ADDR,EMAIL_ADDR_DM,USE_POSB_YN,CERT_XPRY_YN,LKD_YN,LEAV_YN,REG_ID,REG_DATE,CHNG_ID,CHNG_DATE)
-            VALUES (#{user_id},#{pwd},#{pwd_chng_dttm},#{pwd_err_cnt},#{user_nm},#{email_addr},#{email_addr_dm},#{use_posb_yn},#{cert_xpry_yn},#{lkd_yn},#{leav_yn},#{reg_id},#{reg_date},#{chng_id},#{chng_date})
+            VALUES (#{user_id},#{pwd},now(),0,#{user_nm},#{email_addr},#{email_addr_dm},'Y','N','N','N',#{user_id},now(),null,null)
     </insert>
 
     <select id="findUser" resultType="com.insung.core.dto.UserDto">

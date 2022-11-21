@@ -19,17 +19,17 @@
         INSERT INTO userauth
         (
             USER_ID          #사용자_ID
-        , USER_AUTH_CD     #사용자_권한_코드
-        , REG_ID      #등록_자_ID
-        , REG_DATE           #등록_일자
-        , CHNG_ID     #변경_자_ID
-        , CHNG_DATE          #변경_일자
+            , USER_AUTH_CD     #사용자_권한_코드
+            , REG_ID      #등록_자_ID
+            , REG_DATE           #등록_일자
+            , CHNG_ID     #변경_자_ID
+            , CHNG_DATE          #변경_일자
         ) VALUES (
-                     #{user_id}
+                 #{user_id}
                  , #{user_auth_cd}
-                 , #{reg_pers_id}
+                 , #{user_id}
                  ,NOW()
-                 , #{chng_pers_id}
+                 , #{chng_id}
                  ,NOW()
                  )
         ]]>
