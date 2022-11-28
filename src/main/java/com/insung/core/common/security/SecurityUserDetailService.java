@@ -34,21 +34,28 @@ public class SecurityUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info(" userName ===============> : "+ username);
-        UserDto user = userMapper.findUser(username);
+        Optional<UserDto> user = userMapper.findUser(username);
         log.info("user Data : {} ", user);
 
         SignedUser signedUser = null;
         try {
-
-            if (user != null) {
-                signedUser = createSignedUser(user);
-                Collection<GrantedAuthority> authorities = commonMapper.getAuthority(user.getUser_id());
+            if (user.isPresent()) {
+                signedUser = createSignedUser(user.get());
+                Collection<GrantedAuthority> authorities = commonMapper.getAuthority(user.get().getUser_id());
                 log.info("===================>" +  authorities);
                 signedUser.setAuthorities(authorities);
-
             } else {
-                log.info("user null !!!!!!!!!!!");
+                log.info("user null!!!!!");
             }
+//            if (user != null) {
+//                signedUser = createSignedUser(user);
+//                Collection<GrantedAuthority> authorities = commonMapper.getAuthority(user.getUser_id());
+//                log.info("===================>" +  authorities);
+//                signedUser.setAuthorities(authorities);
+//
+//            } else {
+//                log.info("user null !!!!!!!!!!!");
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();

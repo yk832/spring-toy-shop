@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface CommonMapper {
+    public interface CommonMapper {
 
-    List<GrantedAuthority> getAuthority(String user_id);
+        List<GrantedAuthority> getAuthority(String user_id);
 
-    int insertAuth(Map<String,Object> user);
+        int insertAuth(Map<String,Object> user);
 }

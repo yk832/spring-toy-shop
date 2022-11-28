@@ -22,16 +22,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/shop/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
     @GetMapping("/join")
-    public String getJoin(Model model) {
+    public String joinForm(Model model) {
         model.addAttribute("user", new UserDto());
         log.info("회원가입 폼 요청");
         return "user/joinForm";
@@ -40,7 +41,7 @@ public class UserController {
 
     /**
      *
-     * @param userDto
+     * @param userSaveForm
      * @param request
      * @param response
      *
@@ -55,10 +56,24 @@ public class UserController {
                            HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info("회원가입 요청 정보 : {} ",userSaveForm);
+        log.info("objectName={}", bindingResult.getObjectName());
+        log.info("target={}", bindingResult.getTarget());
         if (bindingResult.hasErrors()) {
-//            log.info("errors = {}", bindingResult);
+            log.info("errors = {}", bindingResult);
             return "user/joinForm";
         }
+        //문자열에 공백 혹은 특수문자가 입력된 경우
+        String pattern = "^[a-zA-Z]{1}[a-z0-9_]{4,15}$";
+        if(!Pattern.matches(pattern, userSaveForm.getUser_id())){
+            bindingResult.rejectValue("user_id", null, "5~15자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.");
+            return "/user/joinForm";
+        }
+
+//        if (userSaveForm.getUser_id().length() > 10 || userSaveForm.getUser_id().length() < 3) {
+//            bindingResult.rejectValue("name", null, "3~10자리로 입력");
+//            return "/user/joinForm";
+//        }
+
 
 
         //create UserDto instance
@@ -69,6 +84,14 @@ public class UserController {
         Map<String, Object> paramMap = objectMapper.convertValue(userDto, Map.class);
 //        userService.join(paramMap);
         log.info("회원가입 완료 요청 : ");
+
+//        Item savedItem = itemRepository.save(item);
+//        redirectAttributes.addAttribute("itemId", savedItem.getId());
+//        redirectAttributes.addAttribute("status", true);
+//        return "redirect:/validation/v3/items/{itemId}";
         return "/user/index";
     }
+
+
+
 }

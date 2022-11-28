@@ -7,11 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Mapper
 @Repository
 public interface UserMapper {
     int join(Map<String,Object> userDto);
 
-    UserDto findUser(String userId);
+    Optional<UserDto> findUser(String userId);
 }

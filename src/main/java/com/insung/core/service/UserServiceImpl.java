@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Slf4j
-@Service
-@RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+    @Service
+    @RequiredArgsConstructor
+    public class UserServiceImpl implements UserService{
 
-    private final UserMapper userMapper;
+        private final UserMapper userMapper;
 
-    private final CommonMapper commonMapper;
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    @Override
+        private final CommonMapper commonMapper;
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        @Override
     public void join(Map<String,Object> paramMap) throws Exception{
         String pwd = paramMap.get("pwd").toString();
 

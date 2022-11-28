@@ -2,10 +2,14 @@ package com.insung.core.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
 public class UserDto {
+
     // 사용자 아이디
     private String user_id;
     // 사용자 비밀번호
