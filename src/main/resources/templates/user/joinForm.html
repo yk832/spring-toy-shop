@@ -32,39 +32,35 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div>
-                                                    <button onclick="idCheck()">중복확인</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
+                                                <div class="form-floating mb-3 mb-md-0">
                                                     <input type="text" id="userName" th:field="*{user_nm}" class="form-control" placeholder="이름을 입력하세요">
                                                     <label for="userName">이름</label>
                                                     <small th:errors="*{user_nm}"></small>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input type="text" id="userPhone" class="form-control" placeholder="전화번호를 입력하세요">
                                                     <label for="userPhone">전화번호</label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input type="password" id="inputPassword" th:field="*{pwd}" class="form-control" placeholder="비밀번호를 입력하세요">
                                                     <label for="inputPassword">비밀번호</label>
                                                     <small th:errors="*{pwd}"></small>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="password" id="inputPasswordChk"  class="form-control" placeholder="비밀번호 재확인">
-                                                    <label for="inputPasswordChk">비밀번호 재확인</label>
-                                                </div>
+                                                <!-- 데이터 검증 실패 시 password 값이 사라지는 이슈 방지 -->
+                                                <script th:inline="javascript">
+                                                    /*<![CDATA[*/
+                                                    var pwd = /*[[${user.pwd}]]*/ 'default';
+                                                    if (pwd != null) {
+                                                        $('#inputPassword').val(pwd);
+                                                    }
+                                                    /*]]>*/
+                                                </script>
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
