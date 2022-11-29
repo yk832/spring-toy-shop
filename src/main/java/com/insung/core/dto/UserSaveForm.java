@@ -11,15 +11,15 @@ public class UserSaveForm {
     // TODO 검증시 @blank과 @Pattern을 같이 사용 할 수 있는 방법 고려해보기
 
     // 사용자 아이디
-    @Pattern(regexp = "^[a-zA-Z]{1}[a-z0-9_]{4,15}$", message = "5~15자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.")
+    @Pattern(regexp = "^[a-zA-Z]{1}[a-z0-9_]{3,15}$", message = "4~15자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.")
     private String user_id;
 
     // 사용자 비밀번호
-    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 소문자, 숫자, 특수문자를 사용하세요.")
     private String pwd;
 
     // 사용자명
-    @Pattern(regexp = "^[a-zA-Z0-9가-힣]{3,10}$", message = "이름은 3~10자로 입력해주세요.")
+    @Pattern(regexp = "^[a-zA-Z0-9가-힣]{2,10}$", message = "이름은 2~10자로 입력해주세요.")
     private String user_nm;
 
     // 이메일 주소
