@@ -31,6 +31,12 @@ import java.util.regex.Pattern;
 public class UserController {
     private final UserService userService;
 
+
+    @GetMapping("/home")
+    public String userHome() {
+        return "/user/index";
+    }
+
     @GetMapping("/join")
     public String joinForm(Model model) {
         model.addAttribute("user", new UserDto());
@@ -62,19 +68,6 @@ public class UserController {
             log.info("errors = {}", bindingResult);
             return "user/joinForm";
         }
-        //문자열에 공백 혹은 특수문자가 입력된 경우
-        String pattern = "^[a-zA-Z]{1}[a-z0-9_]{4,15}$";
-        if(!Pattern.matches(pattern, userSaveForm.getUser_id())){
-            bindingResult.rejectValue("user_id", null, "5~15자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.");
-            return "/user/joinForm";
-        }
-
-//        if (userSaveForm.getUser_id().length() > 10 || userSaveForm.getUser_id().length() < 3) {
-//            bindingResult.rejectValue("name", null, "3~10자리로 입력");
-//            return "/user/joinForm";
-//        }
-
-
 
         //create UserDto instance
         UserDto userDto = new UserDto(userSaveForm);
@@ -82,16 +75,19 @@ public class UserController {
         // Object to Map
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> paramMap = objectMapper.convertValue(userDto, Map.class);
-//        userService.join(paramMap);
+        userService.join(paramMap);
         log.info("회원가입 완료 요청 : ");
 
-//        Item savedItem = itemRepository.save(item);
-//        redirectAttributes.addAttribute("itemId", savedItem.getId());
-//        redirectAttributes.addAttribute("status", true);
-//        return "redirect:/validation/v3/items/{itemId}";
-        return "/user/index";
+        return "redirect:/shop/v1/user/home";
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public String errorHandler(Exception e) {
+        // TODO 아이디 , 이메일 중복체크 -> 중복일 경우 화면 데이터를 유지하면서 클라이언트에게 중복된 값이라는 메세지를 띄우도록 개발 하기..
+        // TODO 떠오르는 방법 1. 세션에 저장 해놓고 가져온다?..
+        return "user/joinForm";
+    }
 
 
 }
