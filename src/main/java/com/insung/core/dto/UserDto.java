@@ -52,5 +52,6 @@ public class UserDto {
         this.user_nm = userSaveForm.getUser_nm();
         this.email_addr = userSaveForm.getEmail_addr();
         this.email_addr_dm = userSaveForm.getEmail_addr_dm();
+        this.user_auth_cd = userSaveForm.getUser_auth_cd();
     }
 }
