@@ -12,5 +12,15 @@
         WHERE USER_ID = #{user_id};
     </select>
 
+    <select id="validationUserID" parameterType="map" resultType="String">
+        select USER_ID
+        from shop_user
+        where user_id = #{user_id};
+    </select>
+    <select id="validationUserEmail" parameterType="map" resultType="String">
+        select email_addr
+        from shop_user
+        where user_id = #{email_addr};
+    </select>
 </mapper>
 
