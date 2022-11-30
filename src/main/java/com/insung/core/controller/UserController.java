@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/shop/v1/user")
+@RequestMapping(value = "/shop/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -83,10 +83,11 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public String errorHandler(Exception e) {
+    public ModelAndView errorHandler(Exception e, HttpServletRequest request) {
+        log.info("request : {}", request);
         // TODO 아이디 , 이메일 중복체크 -> 중복일 경우 화면 데이터를 유지하면서 클라이언트에게 중복된 값이라는 메세지를 띄우도록 개발 하기..
         // TODO 떠오르는 방법 1. 세션에 저장 해놓고 가져온다?..
-        return "user/joinForm";
+        return new ModelAndView("index");
     }
 
 
