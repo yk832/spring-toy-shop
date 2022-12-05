@@ -6,11 +6,7 @@ import com.insung.core.dto.UserSaveForm;
 import com.insung.core.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,9 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 @Slf4j
 @Controller
@@ -31,9 +25,9 @@ import java.util.regex.Pattern;
 public class UserController {
     private final UserService userService;
 
-
-    @GetMapping("/home")
+    @GetMapping()
     public String userHome() {
+        log.info("home..");
         return "/user/index";
     }
 
@@ -75,18 +69,22 @@ public class UserController {
         // Object to Map
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> paramMap = objectMapper.convertValue(userDto, Map.class);
-        userService.join(paramMap);
+
+        // 아이디, 이메일 중복체크
+        if(!userService.join(paramMap, bindingResult)) {
+                log.info("errors = {}", bindingResult);
+                return "user/joinForm";
+        }
         log.info("회원가입 완료 요청 : ");
 
-        return "redirect:/shop/v1/user/home";
+        return "redirect:/shop/v1/users";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
     public ModelAndView errorHandler(Exception e, HttpServletRequest request) {
         log.info("request : {}", request);
-        // TODO 아이디 , 이메일 중복체크 -> 중복일 경우 화면 데이터를 유지하면서 클라이언트에게 중복된 값이라는 메세지를 띄우도록 개발 하기..
-        // TODO 떠오르는 방법 1. 세션에 저장 해놓고 가져온다?..
+        log.info("request err : {}", e);
         return new ModelAndView("index");
     }
 

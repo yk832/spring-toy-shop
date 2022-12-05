@@ -9,7 +9,7 @@ import java.util.*;
 @Mapper
 @Repository
 public interface UserMapper {
-    int join(Map<String,Object> userDto);
+    Boolean join(Map<String,Object> userDto);
 
     Optional<UserDto> findUser(String userId);
 

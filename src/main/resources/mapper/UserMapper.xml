@@ -20,7 +20,7 @@
     <select id="validationUserEmail" parameterType="map" resultType="String">
         select email_addr
         from shop_user
-        where user_id = #{email_addr};
+        where email_addr = #{email_addr};
     </select>
 </mapper>
 
