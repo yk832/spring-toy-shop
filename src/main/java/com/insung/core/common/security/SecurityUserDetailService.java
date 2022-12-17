@@ -41,6 +41,7 @@ public class SecurityUserDetailService implements UserDetailsService {
                 signedUser.setAuthorities(authorities);
             } else {
                 // TODO 로그인 시도한 아이디가 없을 경우 예외처리 구현해야함.
+                //  UserDetailsService 에서 예외 처리를 하지 말고 authentication filter에서 걸러지도록 구현하자
                 log.info("user null!!!!!");
             }
         } catch (Exception e) {
