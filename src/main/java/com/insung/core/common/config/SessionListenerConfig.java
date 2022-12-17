@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSessionListener;
 @Configuration
 public class SessionListenerConfig implements HttpSessionListener {
 
-    private static final int SESSION_TIMEOUT = 60; // sec
+    private static final int SESSION_TIMEOUT = 300; // sec
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         se.getSession().setMaxInactiveInterval(SESSION_TIMEOUT);
