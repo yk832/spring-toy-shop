@@ -17,10 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,15 +26,13 @@ public class SecurityUserDetailService implements UserDetailsService {
     private final UserMapper userMapper;
     private final CommonMapper commonMapper;
 
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info(" userName ===============> : "+ username);
         Optional<UserDto> user = userMapper.findUser(username);
         log.info("user Data : {} ", user);
-
         SignedUser signedUser = null;
+
         try {
             if (user.isPresent()) {
                 signedUser = createSignedUser(user.get());
@@ -45,18 +40,9 @@ public class SecurityUserDetailService implements UserDetailsService {
                 log.info("===================>" +  authorities);
                 signedUser.setAuthorities(authorities);
             } else {
+                // TODO 로그인 시도한 아이디가 없을 경우 예외처리 구현해야함.
                 log.info("user null!!!!!");
             }
-//            if (user != null) {
-//                signedUser = createSignedUser(user);
-//                Collection<GrantedAuthority> authorities = commonMapper.getAuthority(user.getUser_id());
-//                log.info("===================>" +  authorities);
-//                signedUser.setAuthorities(authorities);
-//
-//            } else {
-//                log.info("user null !!!!!!!!!!!");
-//            }
-
         } catch (Exception e) {
             e.printStackTrace();
             log.info("" + e.toString());

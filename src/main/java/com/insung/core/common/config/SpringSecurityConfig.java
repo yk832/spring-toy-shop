@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -32,28 +31,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(new LoginSuccessHandler());
     }
 
-
+    // 기존에 빈으로 등록하지 않고 사용할 당시 암호화된 비밀번호 앞에 {bcrypt} 을 문자열로 추가해줬다.
+    // 빈으로 등록하고 기존에 있던 아이디로 로그인 시도하니까 실패하는 현상이 발생..
+    // 앞에 bcrypt 를 추가해주던 로직을 삭제 후 신규 아이디 등록 > 로그인 하니까 성공
+    // 결론 : 앞에 bcrypt 문자열을 추가해주지 않아도 된다.
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//        http.authorizeRequests()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/acs/**").hasAnyRole("ADMIN","USER")
-//                .antMatchers("/**").permitAll()
-////                .antMatchers("/common/**","/user/**","/api/**").permitAll()
-//                .anyRequest().authenticated()
-//            .and()
-//                .formLogin()
-//                .successHandler(new LoginSuccessHandler())
-//            .and()
-//                .csrf().disable();
-//
-//        return http.build();
-//    }
 }

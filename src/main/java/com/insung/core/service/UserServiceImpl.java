@@ -18,14 +18,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-    @Service
-    @RequiredArgsConstructor
-    public class UserServiceImpl implements UserService{
+@Service
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService{
 
-        private final UserMapper userMapper;
-
-        private final CommonMapper commonMapper;
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    private final UserMapper userMapper;
+    private final CommonMapper commonMapper;
+    private final  BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Boolean join(Map<String,Object> paramMap,BindingResult bindingResult) throws Exception{
@@ -37,7 +36,6 @@ import java.util.stream.Collectors;
         log.info("암호화 전 pwd : {}",pwd);
         String pwdEncr = bCryptPasswordEncoder.encode(pwd);
         log.info("암호화 후 pwd : {}", pwdEncr);
-        pwdEncr = "{bcrypt}" + pwdEncr;
         paramMap.put("pwd", pwdEncr);
 
         Boolean result = userMapper.join(paramMap);
