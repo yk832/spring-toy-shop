@@ -2,6 +2,7 @@ package com.insung.core.common.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -32,6 +33,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void successRedirectUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         clearSession(request);
         SavedRequest savedRequest = requestCache.getRequest(request, response);
+
+        // 인증에 성공하여 반환된 authentication 객체를 securityContextHolder 에 저장하고,
+        // 나중에 인증된 사용자 정보를 꺼낼 경우에도 ContextHoder의 context에서 조회하면 된다.
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         log.info("로그인 이전 요청한 URL : {}" , savedRequest);
         log.info("인증 유저의 권한 :" + authentication.getAuthorities());
