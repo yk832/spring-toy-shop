@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Singular;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -31,6 +32,7 @@ public class SecurityUserDetailService implements UserDetailsService {
         log.info(" userName ===============> : "+ username);
         Optional<UserDto> user = userMapper.findUser(username);
         log.info("user Data : {} ", user);
+        // TODO Optional 로 바꾸기..
         SignedUser signedUser = null;
 
         try {
@@ -40,13 +42,15 @@ public class SecurityUserDetailService implements UserDetailsService {
                 log.info("===================>" +  authorities);
                 signedUser.setAuthorities(authorities);
             } else {
-                // TODO 로그인 시도한 아이디가 없을 경우 예외처리 구현해야함.
-                //  UserDetailsService 에서 예외 처리를 하지 말고 authentication filter에서 걸러지도록 구현하자
                 log.info("user null!!!!!");
+                // TODO UsernameNotFoundException을 던져도 BadCredentialsException 로 바뀐다.. 찾아보자
+                throw new UsernameNotFoundException("존재하지 않는 유저");
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-            log.info("" + e.toString());
+            log.info("@@@@@@@@@@@@@@@@@@@@ " + e.toString());
+            throw new UsernameNotFoundException("로그인 정보 조회 중 오류가 발생하였습니다.");
         }
 
         return signedUser;

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Boolean join(Map<String,Object> paramMap,BindingResult bindingResult) throws Exception{
-        // TODO 유저 아이디,이메일 중복 검사
+        // 유저 아이디,이메일 중복 검사
         if(!validationByUserInfo(paramMap, bindingResult)) return false;
 
         String pwd = paramMap.get("pwd").toString();
@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService{
             bindingResult.rejectValue("user_id", "닉네임 중복 오류", "이미 사용중인 닉네임 입니다.");
             return false;
         } else if (!userEmail.isEmpty()) {
-            // TODO 디비에서 이베일도 유니크key로 변경해줘야함.. 현재 유니크하지 않아서 중복 검사가 불가능..
             System.out.println("email fails");
             bindingResult.rejectValue("email_addr", "이메일 중복 오류", "이미 사용중인 이메일 입니다.");
             return false;

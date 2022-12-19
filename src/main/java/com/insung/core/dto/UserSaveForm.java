@@ -8,8 +8,6 @@ import javax.validation.constraints.*;
 @Data
 public class UserSaveForm {
 
-    // TODO 검증시 @blank과 @Pattern을 같이 사용 할 수 있는 방법 고려해보기
-
     // 사용자 아이디
     @Pattern(regexp = "^[a-zA-Z]{1}[a-z0-9_]{3,15}$", message = "4~15자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.")
     private String user_id;

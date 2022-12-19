@@ -21,6 +21,7 @@ public class ControllerExceptionAdvice {
 
     @ExceptionHandler
     public ErrorResultDto globalExHandler(Exception e) {
+        log.error("globalExHandler Err");
         return new ErrorResultDto("BAD", e.getMessage());
     }
 }

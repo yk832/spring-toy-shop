@@ -1,6 +1,7 @@
 package com.insung.core.common.config;
 
 import com.insung.core.common.security.LoginSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,11 +10,14 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final AuthenticationFailureHandler customFailureHandler;
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
@@ -28,7 +32,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .successHandler(new LoginSuccessHandler());
+                .loginPage("/login")
+                .loginProcessingUrl("/login_processing")
+                .successHandler(new LoginSuccessHandler())
+                .failureHandler(customFailureHandler); // 로그인 실패 핸들러
     }
 
     // 기존에 빈으로 등록하지 않고 사용할 당시 암호화된 비밀번호 앞에 {bcrypt} 을 문자열로 추가해줬다.
